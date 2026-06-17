@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Publier • Fortuna</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      color: white;
+    }
+
+    /* HEADER */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo img { width: 70px; border-radius: 50%; background: white; padding: 5px; }
+    nav { display: flex; align-items: center; gap: 35px; }
+    nav a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 15px; transition: color 0.3s; }
+    nav a:hover { color: white; }
+    .btn-connexion {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      padding: 10px 25px;
+      border-radius: 25px;
+      color: white !important;
+      font-weight: bold;
+      box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 30px;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(37,99,235,0.2);
+      border: 1px solid rgba(37,99,235,0.5);
+      color: #60a5fa;
+      padding: 6px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-size: 48px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ffffff, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.6);
+      font-size: 18px;
+    }
+
+    /* FORM */
+    .form-container {
+      max-width: 750px;
+      margin: 40px auto;
+      padding: 0 20px 60px;
+    }
+    .form-card {
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 50px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    }
+
+    .form-group { margin-bottom: 28px; }
+    label {
+      display: block;
+      color: rgba(255,255,255,0.9);
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .input-wrapper { position: relative; }
+    .input-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      opacity: 0.6;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 16px 16px 16px 48px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      color: white;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s;
+    }
+    input:focus, textarea:focus, select:focus {
+      border-color: #2563eb;
+      background: rgba(37,99,235,0.1);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+    }
+    input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.35); }
+    textarea {
+      height: 130px;
+      resize: vertical;
+      padding-top: 16px;
+    }
+    select { padding-left: 48px; cursor: pointer; }
+    select option { background: #1e1b4b; color: white; }
+
+    /* Grille 2 colonnes */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    /* Upload */
+    .upload-zone {
+      border: 2px dashed rgba(255,255,255,0.2);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .upload-zone:hover {
+      border-color: #2563eb;
+      background: rgba(37,99,235,0.08);
+    }
+    .upload-zone input { display: none; }
+    .upload-icon { font-size: 36px; margin-bottom: 10px; }
+    .upload-text { color: rgba(255,255,255,0.6); font-size: 14px; }
+    .upload-text span { color: #60a5fa; font-weight: bold; }
+
+    /* Bouton */
+    .btn-submit {
+      width: 100%;
+      padding: 18px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      border: none;
+      border-radius: 14px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 15px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 8px 25px rgba(37,99,235,0.4);
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(37,99,235,0.5);
+    }
+    .btn-submit:active { transform: translateY(0); }
+
+    /* Divider */
+    .divider {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      margin: 30px 0;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      padding: 30px 0 10px;
+    }
+    .stat { text-align: center; }
+    .stat-number { font-size: 24px; font-weight: 800; color: #60a5fa; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+
+    footer {
+      text-align: center;
+      color: rgba(255,255,255,0.3);
+      padding: 30px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">
+      <img src="1781211192450.png" alt="Fortuna" style="width: 100px;">
+    </div>
+    <nav>
+      <a href="acceuil.html">Accueil</a>
+      <a href="sites-a-vendre.html">Sites à vendre</a>
+      <a href="publier-un-site.html">Publier un site</a>
+      <div id="user-info">
+        <a href="connexion.html" class="btn-connexion" id="btn-connexion">Connexion</a>
+        <span id="user-nom" style="display:none; color:white; font-weight:bold;"></span>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-badge">✦ ESPACE DÉVELOPPEUR</div>
+    <h1>Publiez votre chef-d'œuvre</h1>
+    <p>Transformez votre code en opportunité et rejoignez notre communauté</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">+120</div>
+      <div class="stat-label">Sites vendus</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">+85</div>
+      <div class="stat-label">Développeurs</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">4.9★</div>
+      <div class="stat-label">Note moyenne</div>
+    </div>
+  </div>
+
+  <div class="form-container">
+    <div class="form-card">
+      <form id="publish-form">
+
+        <div class="form-group">
+          <label>📝 Titre du site</label>
+          <div class="input-wrapper">
+            <span class="input-icon">🌐</span>
+            <input type="text" id="title" placeholder="Ex: Dashboard SaaS Ultra Moderne" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>📄 Description détaillée</label>
+          <div class="input-wrapper">
+            <textarea id="description" placeholder="Décrivez votre site, ses fonctionnalités uniques, les technologies utilisées..." required style="padding-left: 16px;"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>🏷️ Catégorie</label>
+            <div class="input-wrapper">
+              <span class="input-icon">📂</span>
+              <select id="category" required>
+                <option value="">Choisir une catégorie</option>
+                <option value="ecommerce">E-commerce</option>
+                <option value="portfolio">Portfolio</option>
+                <option value="blog">Blog & Contenu</option>
+                <option value="dashboard">Dashboard / SaaS</option>
+                <option value="autre">Autre</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>💰 Prix (FCFA)</label>
+            <div class="input-wrapper">
+              <span class="input-icon">💵</span>
+              <input type="number" id="price" placeholder="120 000" min="20000" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>🖼️ Captures d'écran</label>
+          <div class="upload-zone" onclick="document.getElementById('screenshots').click()">
+            <input type="file" id="screenshots" multiple accept="image/*">
+            <div class="upload-icon">📁</div>
+            <div class="upload-text">Glissez vos images ici ou <span>cliquez pour parcourir</span></div>
+            <div class="upload-text" style="margin-top:5px; font-size:12px;">PNG, JPG jusqu'à 10MB</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>📱 TÉLÉPHONE WHATSAPP</label>
+          <div class="input-wrapper">
+            <span class="input-icon">📱</span>
+            <input type="tel" id="telephone" placeholder="Ex: 237XXXXXXXXX" required>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <button type="submit" class="btn-submit">
+          🚀 Publier sur Fortuna
+        </button>
+
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Fortuna - Marketplace pour développeurs amateurs</p>
+  </footer>
+
+  <script>
+   const nom = localStorage.getItem('nom');
+if (nom) {
+  document.getElementById('btn-connexion').style.display = 'none';
+  document.getElementById('user-nom').style.display = 'inline';
+  document.getElementById('user-nom').textContent = '👤 ' + nom;
+  
+  const btnDeco = document.createElement('button');
+  btnDeco.textContent = 'Déconnexion';
+  btnDeco.style.cssText = 'background:red; color:white; border:none; padding:8px 16px; border-radius:20px; cursor:pointer; margin-left:15px;';
+  btnDeco.onclick = function() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('nom');
+    window.location.reload();
+  };
+  document.getElementById('user-info').appendChild(btnDeco);
+}
+  const API = 'http://localhost:3000/api';
+
+document.getElementById('publish-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Vous devez être connecté pour publier un site !');
+    window.location.href = 'connexion.html';
+    return;
+  }
+
+  const btn = document.querySelector('.btn-submit');
+  btn.textContent = '⏳ Publication en cours...';
+  btn.disabled = true;
+
+  try {
+    const formData = new FormData();
+    formData.append('titre', document.getElementById('title').value);
+    formData.append('description', document.getElementById('description').value);
+    formData.append('categorie', document.getElementById('category').value);
+    formData.append('prix', document.getElementById('price').value);
+    formData.append('telephone', document.getElementById('telephone').value);
+
+    const images = document.getElementById('screenshots').files;
+    for (let img of images) {
+      formData.append('images', img);
+    }
+
+    const res = await fetch(`${API}/sites`, {
+      method: 'POST',
+      headers: { 'authorization': token },
+      body: formData
+    });
+
+    const data = await res.json();
+    alert(data.message);
+
+    if (data.message === 'Site publié avec succès !') {
+      btn.textContent = '✅ Publié avec succès !';
+      setTimeout(() => {
+        window.location.href = '\sites-a-vendre.html';
+      }, 1500);
+    } else {
+      btn.textContent = '🚀 Publier sur Fortuna';
+      btn.disabled = false;
+    }
+
+  } catch (err) {
+    alert('Erreur : ' + err.message);
+    btn.textContent = '🚀 Publier sur Fortuna';
+    btn.disabled = false;
+  }
+});
+
+// Aperçu des images
+document.getElementById('screenshots').addEventListener('change', function(e) {
+  const files = e.target.files;
+  const uploadZone = document.querySelector('.upload-zone');
+  
+  const oldPreview = document.getElementById('preview-imgs');
+  if (oldPreview) oldPreview.remove();
+
+  const preview = document.createElement('div');
+  preview.id = 'preview-imgs';
+  preview.style.cssText = 'display:flex; flex-wrap:wrap; gap:10px; margin-top:15px;';
+
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const img = document.createElement('img');
+      img.src = e.target.result;
+      img.style.cssText = 'width:100px; height:70px; object-fit:cover; border-radius:8px; border:2px solid rgba(255,255,255,0.2);';
+      preview.appendChild(img);
+    };
+    reader.readAsDataURL(file);
+  });
+
+  uploadZone.appendChild(preview);
+  document.querySelector('.upload-text').innerHTML = `✅ <span>${files.length} fichier(s) sélectionné(s)</span>`;
+});
+</script>
+
+</body>
+</html>

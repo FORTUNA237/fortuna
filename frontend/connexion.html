@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - Fortuna</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 50px 45px;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+    .logo img {
+      width: 80px;
+      border-radius: 50%;
+      background: white;
+      padding: 5px;
+    }
+
+    h1 {
+      text-align: center;
+      color: white;
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    .tabs {
+      display: flex;
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 5px;
+      margin-bottom: 30px;
+    }
+
+    .tab {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      cursor: pointer;
+      color: rgba(255,255,255,0.5);
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+      position: relative;
+    }
+
+    .form-icon {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 16px;
+      opacity: 0.6;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 14px 14px 45px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      color: white;
+      font-size: 15px;
+      outline: none;
+      transition: all 0.3s;
+    }
+
+    input:focus {
+      border-color: #2563eb;
+      background: rgba(37,99,235,0.1);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+    }
+
+    input::placeholder { color: rgba(255,255,255,0.35); }
+
+    .btn {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #2563eb, #7c3aed);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 8px 25px rgba(37,99,235,0.4);
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(37,99,235,0.5);
+    }
+
+    .forgot {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .forgot a {
+      color: #60a5fa;
+      text-decoration: none;
+      font-size: 13px;
+    }
+
+    .divider {
+      text-align: center;
+      color: rgba(255,255,255,0.3);
+      font-size: 12px;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .divider::before, .divider::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 40%;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    .divider::before { left: 0; }
+    .divider::after { right: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="1781211192450.png" alt="Fortuna">
+    </div>
+
+    <h1>Bienvenue sur Fortuna</h1>
+    <p class="subtitle">Le tremplin des développeurs</p>
+
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab(0)">Connexion</div>
+      <div class="tab" onclick="switchTab(1)">Inscription</div>
+    </div>
+
+    <!-- Formulaire Connexion -->
+    <div id="login-form">
+      <div class="form-group">
+        <span class="form-icon">📧</span>
+        <input type="email" id="login-email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <span class="form-icon">🔒</span>
+        <input type="password" id="login-password" placeholder="Mot de passe" required>
+      </div>
+      <button class="btn" onclick="login()">Se connecter</button>
+      <div class="forgot">
+        <a href="#">Mot de passe oublié ?</a>
+      </div>
+    </div>
+
+    <!-- Formulaire Inscription -->
+    <div id="register-form" style="display:none;">
+      <div class="form-group">
+        <span class="form-icon">👤</span>
+        <input type="text" id="reg-nom" placeholder="Nom complet" required>
+      </div>
+      <div class="form-group">
+        <span class="form-icon">📧</span>
+        <input type="email" id="reg-email" placeholder="Email" required>
+      </div>
+      <div class="form-group">
+        <span class="form-icon">🔒</span>
+        <input type="password" id="reg-password" placeholder="Mot de passe" required>
+      </div>
+      <div class="form-group">
+        <span class="form-icon">📱</span>
+        <input type="tel" id="reg-tel" placeholder="Téléphone WhatsApp (ex: 237XXXXXXXXX)" required>
+      </div>
+      <button class="btn" onclick="register()">Créer mon compte</button>
+    </div>
+  </div>
+
+  <script>
+    const API = 'http://localhost:3000/api';
+
+    function switchTab(index) {
+      const tabs = document.querySelectorAll('.tab');
+      tabs.forEach((tab, i) => tab.classList.toggle('active', i === index));
+      document.getElementById('login-form').style.display = index === 0 ? 'block' : 'none';
+      document.getElementById('register-form').style.display = index === 1 ? 'block' : 'none';
+    }
+
+    async function login() {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const res = await fetch(`${API}/auth/connexion`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (data.token) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('nom', data.nom);
+        alert(`Bienvenue ${data.nom} !`);
+        window.location.href = '\acceuil.html';
+      } else {
+        alert(data.message);
+      }
+    }
+
+    async function register() {
+      const nom = document.getElementById('reg-nom').value;
+      const email = document.getElementById('reg-email').value;
+      const password = document.getElementById('reg-password').value;
+      const telephone = document.getElementById('reg-tel').value;
+
+      const res = await fetch(`${API}/auth/inscription`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nom, email, password, telephone })
+      });
+      const data = await res.json();
+      alert(data.message);
+      if (data.message === 'Compte créé avec succès !') switchTab(0);
+    }
+  </script>./
+
+</body>
+</html>

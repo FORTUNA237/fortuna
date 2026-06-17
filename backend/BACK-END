@@ -1,0 +1,14 @@
+FORTUNA/
+├── accueil.html
+├── sites-a-vendre.html
+├── publier-un-site.html
+├── connexion.html
+└── backend/
+    ├── server.js
+    ├── .env
+    ├── package.json
+    ├── config/
+    │   └── db.js
+    └── routes/
+        ├── auth.js
+        └── sites.js

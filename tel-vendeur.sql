@@ -1,0 +1,1 @@
+ALTER TABLE fortuna_db.sites ADD COLUMN telephone_vendeur VARCHAR(20);

@@ -1,0 +1,22 @@
+CREATE DATABASE fortuna_db;
+USE fortuna_db;
+
+CREATE TABLE utilisateurs (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nom VARCHAR(100) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE sites (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  titre VARCHAR(200) NOT NULL,
+  description TEXT,
+  categorie VARCHAR(100),
+  prix DECIMAL(10,2),
+  utilisateur_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (utilisateur_id) REFERENCES utilisateurs(id)
+);
+ALTER TABLE sites ADD COLUMN images TEXT;

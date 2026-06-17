@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortuna - Marketplace de Sites Web</title>
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --dark: #1e2937;
+            --light: #f8fafc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            line-height: 1.6;
+        }
+
+       
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+      
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 20px 80px;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-bg.jpg') center/cover no-repeat;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .section {
+            padding: 80px 5%;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+        }
+
+        .conteneur-cards {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            width: 280px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.4s;
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .prix {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #16a34a;
+            margin: 12px 0;
+        }
+
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.3rem; }
+            nav { display: none; } /* Tu peux ajouter un menu burger plus tard */
+        }
+        header {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    padding: 15px 5%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+header {
+    background: #0f172a;           /* Bleu très foncé / presque noir pour plus d'élégance */
+    color: white;
+    padding: 12px 5%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 3px solid #3b82f6;
+}
+
+.header-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-img {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover .logo-img {
+    transform: scale(1.08);
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.3s;
+    position: relative;
+}
+
+nav a:hover {
+    color: #60a5fa;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -6px;
+    left: 0;
+    background-color: #3b82f6;
+    transition: width 0.3s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* Bouton Connexion */
+.btn-connexion {
+    background: #3b82f6;
+    color: white !important;
+    padding: 10px 24px !important;
+    border-radius: 8px;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.btn-connexion:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px 0;
+    }
+    nav {
+        gap: 25px;
+        font-size: 1rem;
+    }
+    .logo-img {
+        height: 60px;
+    }
+}
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-img {
+    height: 65px;           /* Taille du logo ajustée */
+    width: auto;
+    object-fit: contain;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 35px;              /* Espacement entre les liens */
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: all 0.3s;
+    padding: 8px 0;
+}
+
+nav a:hover {
+    color: #bae6fd;
+    border-bottom: 3px solid #bae6fd;
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav {
+        gap: 20px;
+        font-size: 1rem;
+    }
+    .logo-img {
+        height: 55px;
+    }
+}
+/* Comment ça marche */
+.steps-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.step {
+    background: white;
+    border-radius: 12px;
+    padding: 40px 25px 30px;
+    width: 260px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.step:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 30px rgba(0,0,0,0.12);
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #3b82f6, #1e40af);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin: 0 auto 20px;
+    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+}
+
+.step h3 {
+    color: var(--dark);
+    margin-bottom: 15px;
+    font-size: 1.35rem;
+}
+
+.step p {
+    color: #555;
+    font-size: 1.02rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .steps-container {
+        gap: 20px;
+    }
+    .step {
+        width: 100%;
+        max-width: 320px;
+    }
+}
+.btn-connexion {
+            background: #3b82f6;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 700;
+            color: white !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+        <div class="logo">
+            <img src="1781211192450.png" alt="Fortuna Logo" class="logo-img" style="width: 200px; height: 180px; border-radius: 50%; object-fit: cover; margin: 10px 150px 10px 0px;"  >
+        </div>
+        <nav>
+            <a href="acceuil.html">Accueil</a>
+            <a href="sites-a-vendre.html">Sites à vendre</a>
+            <a href="publier-un-site.html">Publier un site</a>
+            <div id="user-info">
+                <a href="connexion.html" class="btn-connexion" id="btn-connexion">Connexion</a>
+                <span id="user-nom" style="display:none; color:white; font-weight:bold;"></span>
+             </div>
+        </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Achetez et vendez des sites web</h1>
+        <p>La plateforme dédiée aux développeurs amateurs qui veulent monétiser leur travail.</p>
+        <a href="sites-a-vendre.html" class="btn">Découvrir les sites</a>
+    </section>
+
+    <section class="section">
+        <h2>Sites populaires</h2>
+        <div class="conteneur-cards">
+
+            <div class="card">
+                <img src="e-commerce.png" alt="Site E-commerce">
+                <div class="card-content">
+                    <h3>Site E-commerce</h3>
+                    <p>Boutique en ligne moderne</p>
+                    <p class="prix">100 000 FCFA</p>
+                    <a href="#" class="btn">Voir</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="images (2).jpeg" alt="Portfolio">
+                <div class="card-content">
+                    <h3>Portfolio Pro</h3>
+                    <p>Portfolio responsive</p>
+                    <p class="prix">60 000 FCFA</p>
+                    <a href="#" class="btn">Voir</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <img src="site web blog gratuit.jpg" alt="Blog">
+                <div class="card-content">
+                    <h3>Blog Moderne</h3>
+                    <p>Blog optimisé SEO</p>
+                    <p class="prix">30 000 FCFA</p>
+                    <a href="#" class="btn">Voir</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- Comment ça marche ? -->
+<section class="section" style="background-color: #f8fafc;">
+    <h2>Comment ça marche ?</h2>
+    
+    <div class="steps-container">
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Publiez votre site</h3>
+            <p>Créez un compte gratuit, remplissez les informations de votre site (captures d'écran, description, prix, technologies utilisées) et mettez-le en ligne en quelques minutes.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>Découvrez et choisissez</h3>
+            <p>Les acheteurs parcourent les sites disponibles avec des filtres (catégorie, prix, type de site). Ils peuvent voir les détails et contacter le vendeur.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Transaction sécurisée</h3>
+            <p>Une fois l'accord conclu, le paiement est sécurisé via la plateforme. Fortuna protège à la fois l'acheteur et le vendeur.</p>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <h3>Transfert du site</h3>
+            <p>Vous transférez les accès (hébergement, domaine, codes sources). Nous vous accompagnons pour que tout se passe bien.</p>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026 Fortuna - Marketplace pour développeurs amateurs</p>
+    <p>Tous droits réservés</p>
+    <a href="https://wa.me/237640088206?text=Bonjour%20Fortuna%20!%20J'ai%20besoin%20d'aide." 
+       target="_blank"
+       style="display:inline-flex; align-items:center; gap:10px; margin-top:15px; background:#25D366; color:white; padding:12px 25px; border-radius:25px; text-decoration:none; font-weight:bold;">
+      💬 Besoin d'aide ? Contactez-nous sur WhatsApp
+    </a>
+  </footer>
+<script>
+    // Afficher nom utilisateur
+    const nom = localStorage.getItem('nom');
+if (nom) {
+  document.getElementById('btn-connexion').style.display = 'none';
+  document.getElementById('user-nom').style.display = 'inline';
+  document.getElementById('user-nom').textContent = '👤 ' + nom;
+  
+  const btnDeco = document.createElement('button');
+  btnDeco.textContent = 'Déconnexion';
+  btnDeco.style.cssText = 'background:red; color:white; border:none; padding:8px 16px; border-radius:20px; cursor:pointer; margin-left:15px;';
+  btnDeco.onclick = function() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('nom');
+    window.location.reload();
+  };
+  document.getElementById('user-info').appendChild(btnDeco);
+}
+</script>
+</body>
+</html>

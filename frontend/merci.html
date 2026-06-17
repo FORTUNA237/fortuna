@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merci - Fortuna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+        .success-card {
+            background: white;
+            max-width: 600px;
+            padding: 50px 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .success-icon {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+        }
+        h1 { color: #16a34a; margin-bottom: 15px; }
+        .details {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 25px 0;
+            text-align: left;
+        }
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="success-card">
+        <div class="success-icon">🎉</div>
+        <h1>Merci ! Votre site a été soumis</h1>
+        <p style="font-size:1.2rem; color:#555; margin-bottom:25px;">
+            Nous avons bien reçu votre demande de publication.
+        </p>
+
+        <div class="details" id="site-details"></div>
+
+        <p><strong>Prochaine étape :</strong><br>
+        Notre équipe va examiner votre site dans les <strong>48 heures</strong>.<br>
+        Vous recevrez un email de confirmation.
+        </p>
+
+        <a href="index.html" class="btn">Retour à l'accueil</a>
+        <a href="sites-a-vendre.html" class="btn" style="background:#64748b; margin-left:15px;">Voir les sites en vente</a>
+    </div>
+
+    <script>
+        // Récupérer le titre passé dans l'URL
+        const params = new URLSearchParams(window.location.search);
+        const title = params.get('title');
+        
+        if (title) {
+            document.getElementById('site-details').innerHTML = `
+                <strong>Site soumis :</strong> ${title}<br><br>
+                <strong>Statut :</strong> En cours de validation
+            `;
+        }
+    </script>
+</body>
+</html>
