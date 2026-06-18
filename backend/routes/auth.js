@@ -10,15 +10,28 @@ router.post('/inscription', async (req, res) => {
 
   try {
     const hash = await bcrypt.hash(password, 10);
-    db.query(
+    await db.promise().query(
       'INSERT INTO utilisateurs (nom, email, password, telephone) VALUES (?, ?, ?, ?)',
-[nom, email, hash, telephone],
-      (err, result) => {
-        if (err) return res.status(400).json({ message: 'Email déjà utilisé' });
-        res.json({ message: 'Compte créé avec succès !' });
-      }
+      [nom, email, hash, telephone]
     );
+    res.json({ message: 'Compte créé avec succès !' });
   } catch (err) {
+    if (err.code === 'ER_DUP_ENTRY') {
+      return res.status(400).json({ message: 'Email déjà utilisé' });
+    }
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
+  try {
+    const hash = await bcrypt.hash(password, 10);
+    await db.promise().query(
+      'INSERT INTO utilisateurs (nom, email, password, telephone) VALUES (?, ?, ?, ?)',
+      [nom, email, hash, telephone]
+    );
+    res.json({ message: 'Compte créé avec succès !' });
+  } catch (err) {
+    if (err.code === 'ER_DUP_ENTRY') {
+      return res.status(400).json({ message: 'Email déjà utilisé' });
+    }
     res.status(500).json({ message: 'Erreur serveur' });
   }
 });
