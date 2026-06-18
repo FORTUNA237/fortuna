@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
     const [results] = await db.promise().query('SELECT * FROM sites ORDER BY created_at DESC');
     res.json(results);
   } catch (err) {
-    res.status(500).json({ message: 'Erreur serveur' });
+    res.status(500).json({ message: err.message });
   }
 });
 
