@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('/config/db');
+const db = require('../config/db');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
@@ -27,30 +27,29 @@ const verifierToken = (req, res, next) => {
   }
 };
 
-router.get('/', (req, res) => {
-  db.query('SELECT * FROM sites ORDER BY created_at DESC', (err, results) => {
-    if (err) return res.status(500).json({ message: 'Erreur serveur' });
+router.get('/', async (req, res) => {
+  try {
+    const [results] = await db.promise().query('SELECT * FROM sites ORDER BY created_at DESC');
     res.json(results);
-  });
+  } catch (err) {
+    res.status(500).json({ message: 'Erreur serveur' });
+  }
 });
 
-router.post('/', verifierToken, upload.array('images', 5), (req, res) => {
+router.post('/', verifierToken, upload.array('images', 5), async (req, res) => {
   const { titre, description, categorie, prix, telephone } = req.body;
   const utilisateur_id = req.user.id;
   const images = req.files ? req.files.map(f => f.filename).join(',') : '';
   const telephone_vendeur = telephone || '';
-
-  db.query(
-    'INSERT INTO sites (titre, description, categorie, prix, utilisateur_id, images, telephone_vendeur) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [titre, description, categorie, prix, utilisateur_id, images, telephone_vendeur],
-    (err) => {
-      if (err) {
-        console.log('Erreur INSERT:', err.message);
-        return res.status(500).json({ message: 'Erreur: ' + err.message });
-      }
-      res.json({ message: 'Site publié avec succès !' });
-    }
-  );
+  try {
+    await db.promise().query(
+      'INSERT INTO sites (titre, description, categorie, prix, utilisateur_id, images, telephone_vendeur) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      [titre, description, categorie, prix, utilisateur_id, images, telephone_vendeur]
+    );
+    res.json({ message: 'Site publié avec succès !' });
+  } catch (err) {
+    res.status(500).json({ message: 'Erreur: ' + err.message });
+  }
 });
 
 module.exports = router;
